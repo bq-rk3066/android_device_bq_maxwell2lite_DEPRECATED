@@ -1,0 +1,25 @@
+From 7434c6678bfbdc757e80ab3c3f419ac3681c4e5d Mon Sep 17 00:00:00 2001
+From: fefifofum <fefifofum@email.com>
+Date: Tue, 24 Sep 2013 21:39:53 +0200
+Subject: [PATCH] Enable camera app
+
+---
+ DisableCameraReceiver.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/com/android/camera/DisableCameraReceiver.java b/src/com/android/camera/DisableCameraReceiver.java
+index 3517405..4cef85f 100644
+--- a/src/com/android/camera/DisableCameraReceiver.java
++++ b/src/com/android/camera/DisableCameraReceiver.java
+@@ -29,7 +29,7 @@ import android.util.Log;
+ // this receiver will be disabled, so it will not run again.
+ public class DisableCameraReceiver extends BroadcastReceiver {
+     private static final String TAG = "DisableCameraReceiver";
+-    private static final boolean CHECK_BACK_CAMERA_ONLY = true;
++    private static final boolean CHECK_BACK_CAMERA_ONLY = false;
+     private static final String ACTIVITIES[] = {
+         "com.android.camera.CameraLauncher",
+     };
+-- 
+1.8.1.2
+

@@ -15,3 +15,6 @@
 #
 
 add_lunch_combo cm_maxwell2lite-eng
+
+# Run device patches on the tree.
+sh device/bq/maxwell2lite/patches/apply.sh

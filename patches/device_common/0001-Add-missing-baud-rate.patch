@@ -1,0 +1,39 @@
+From 5a16bc63731da3b24370bae05c95601499297796 Mon Sep 17 00:00:00 2001
+From: fefifofum <fefifofum@email.com>
+Date: Mon, 23 Sep 2013 14:08:46 +0200
+Subject: [PATCH] Add missing BAUD RATE for bluetooth
+
+---
+ hardware.c       | 2 ++
+ userial_vendor.c | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/libbt/src/hardware.c b/libbt/src/hardware.c
+index df20c9f..82bc95c 100644
+--- a/libbt/src/hardware.c
++++ b/libbt/src/hardware.c
+@@ -337,6 +337,8 @@ uint8_t line_speed_to_userial_baud(uint32_t line_speed)
+         baud = USERIAL_BAUD_3M;
+     else if (line_speed == 2000000)
+         baud = USERIAL_BAUD_2M;
++    else if (line_speed == 1500000)
++        baud = USERIAL_BAUD_1_5M;
+     else if (line_speed == 1000000)
+         baud = USERIAL_BAUD_1M;
+     else if (line_speed == 921600)
+diff --git a/libbt/src/userial_vendor.c b/libbt/src/userial_vendor.c
+index 5233d19..907b106 100755
+--- a/libbt/src/userial_vendor.c
++++ b/libbt/src/userial_vendor.c
+@@ -94,6 +94,8 @@ uint8_t userial_to_tcio_baud(uint8_t cfg_baud, uint32_t *baud)
+         *baud = B3000000;
+     else if (cfg_baud == USERIAL_BAUD_2M)
+         *baud = B2000000;
++    else if (cfg_baud == USERIAL_BAUD_1_5M)
++        *baud = B1500000;
+     else if (cfg_baud == USERIAL_BAUD_1M)
+         *baud = B1000000;
+     else if (cfg_baud == USERIAL_BAUD_921600)
+-- 
+1.8.1.2
+

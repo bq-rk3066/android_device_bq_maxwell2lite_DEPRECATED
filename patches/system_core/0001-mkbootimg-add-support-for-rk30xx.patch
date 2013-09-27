@@ -1,0 +1,71 @@
+From 9904864605f84bffe7c51e00ca03590598a9d409 Mon Sep 17 00:00:00 2001
+From: Kra1o5 <kra1o5x@gmail.com>
+Date: Fri, 27 Sep 2013 01:58:40 +0200
+Subject: [PATCH] mkbootimg-add-support-for-rk30xx
+
+---
+ mkbootimg/Android.mk  |  9 +++++++++
+ mkbootimg/mkbootimg.c | 10 ++++++++++
+ 2 files changed, 19 insertions(+)
+
+diff --git a/mkbootimg/Android.mk b/mkbootimg/Android.mk
+index 27f6379..b5c355c 100644
+--- a/mkbootimg/Android.mk
++++ b/mkbootimg/Android.mk
+@@ -7,6 +7,10 @@ LOCAL_STATIC_LIBRARIES := libmincrypt
+ 
+ LOCAL_MODULE := mkbootimg
+ 
++ifeq ($(TARGET_BOARD_PLATFORM),rk30xx)
++  LOCAL_CFLAGS += -DRK30XX
++endif
++
+ include $(BUILD_HOST_EXECUTABLE)
+ 
+ include $(CLEAR_VARS)
+@@ -24,6 +28,11 @@ LOCAL_MODULE_CLASS := UTILITY_EXECUTABLES
+ LOCAL_UNSTRIPPED_PATH := $(PRODUCT_OUT)/symbols/utilities
+ LOCAL_MODULE_PATH := $(PRODUCT_OUT)/utilities
+ LOCAL_FORCE_STATIC_EXECUTABLE := true
++
++ifeq ($(TARGET_BOARD_PLATFORM),rk30xx)
++  LOCAL_CFLAGS += -DRK30XX
++endif
++
+ include $(BUILD_EXECUTABLE)
+ 
+ include $(CLEAR_VARS)
+diff --git a/mkbootimg/mkbootimg.c b/mkbootimg/mkbootimg.c
+index 06fc95b..3c06a95 100644
+--- a/mkbootimg/mkbootimg.c
++++ b/mkbootimg/mkbootimg.c
+@@ -115,9 +115,15 @@ int main(int argc, char **argv)
+     uint8_t* sha;
+     unsigned base           = 0x10000000;
+     unsigned kernel_offset  = 0x00008000;
++#ifdef RK30XX
++    unsigned ramdisk_offset = 0x01c00000;
++    unsigned second_offset  = 0x00b00000;
++    unsigned tags_offset    = 0x00378000;
++#else
+     unsigned ramdisk_offset = 0x01000000;
+     unsigned second_offset  = 0x00f00000;
+     unsigned tags_offset    = 0x00000100;
++#endif
+ 
+     argc--;
+     argv++;
+@@ -246,6 +252,10 @@ int main(int argc, char **argv)
+     SHA_update(&ctx, &hdr.ramdisk_size, sizeof(hdr.ramdisk_size));
+     SHA_update(&ctx, second_data, hdr.second_size);
+     SHA_update(&ctx, &hdr.second_size, sizeof(hdr.second_size));
++#ifdef RK30XX
++    /* tags_addr, page_size, unused[2], name[], and cmdline[] */
++    SHA_update(&ctx, &hdr.tags_addr, 4 + 4 + 4 + 4 + 16 + 512);
++#endif
+     if(dt_data) {
+         SHA_update(&ctx, dt_data, hdr.dt_size);
+         SHA_update(&ctx, &hdr.dt_size, sizeof(hdr.dt_size));
+-- 
+1.8.1.2
+
