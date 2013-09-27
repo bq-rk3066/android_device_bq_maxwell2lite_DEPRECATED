@@ -1,0 +1,20 @@
+#
+# MAXWELL2LITE_BUILD_PROPERTIES
+#
+
+# Graphics
+ro.opengles.version=131072
+persist.sys.strictmode.visual=false
+testing.mediascanner.skiplist=/storage/sdcard0/Android/
+ro.sf.lcd_density=160
+
+# Ril
+rild.libargs=-d_/dev/ttyUSB1
+ril.pppchannel=/dev/ttyUSB2
+rild.libpath=/system/lib/libril-rk29-dataonly.so
+ril.function.dataonly=1
+
+# Facelock
+ro.config.facelock=enable_facelock
+persist.facelock.detect_cutoff=5000
+persist.facelock.recog_cutoff=5000

@@ -1,0 +1,186 @@
+import init.rk30board.usb.rc
+
+on early-init
+    mount debugfs debugfs /sys/kernel/debug
+
+on init
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
+
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
+
+    # Support legacy paths
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+
+    # External SD card
+    mkdir /storage/sdcard1 0775 system system
+    export SECOND_VOLUME_STORAGE /storage/sdcard1
+    symlink /storage/sdcard1 /mnt/external_sd
+    symlink /storage/sdcard1 /external_sd
+
+    # USB OTG drive
+    mkdir /storage/usbdisk0 0775 system system
+    export THIRD_VOLUME_STORAGE /storage/usbdisk0
+    symlink /storage/usbdisk0 /mnt/usb_storage
+    symlink /storage/usbdisk0 /usb_storage
+
+on fs
+    insmod /rk30xxnand_ko.ko
+    mount_all /fstab.rk30sdk
+
+on post-fs-data
+    # We will remap this as /mnt/shell/emulated with the sdcard fuse tool
+    mkdir /data/media 0770 media_rw media_rw
+    # Set indication (checked by vold) that we have finished this action
+    setprop vold.post_fs_data_done 1
+
+on boot
+    chown system system /sys/devices/system/cpu/cpu1/online
+    chmod 0660 /sys/devices/system/cpu/cpu1/online
+    insmod /system/lib/modules/vpu_service.ko
+
+    # Backlight
+    chown system system /sys/class/backlight/rk28_bl/brightness
+
+    # For wifi
+    mkdir /data/misc/wifi 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    mkdir /data/misc/wifi/sockets/tmp 0440 wifi wifi
+    mkdir /data/misc/wpa_supplicant 0770 wifi wifi
+    mkdir /data/misc/p2p_supplicant 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+    chown wifi wifi /data/misc/wifi/wpa_supplicant.conf
+    chown wifi wifi /data/misc/wifi/p2p_supplicant.conf
+    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
+    chmod 0660 /data/misc/wifi/p2p_supplicant.conf
+
+    # Mirroring device enable
+    chown media media /dev/mirroring
+    chmod 664 /dev/mirroring
+
+    # Bluetooth power up/down interface
+    chmod 0660 /dev/ttyS0
+    chmod 0660 /dev/ttyS2
+    chmod 0660 /dev/vflash
+    chown bluetooth net_bt_stack /dev/ttyS0
+    chown bluetooth net_bt_stack /dev/ttyS2
+    chown bluetooth net_bt_stack /dev/vflash
+
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+
+    # Bluetooth MAC address programming
+    chown bluetooth net_bt_stack ro.bt.bdaddr_path
+    setprop ro.bt.bdaddr_path "/data/blue_mac"
+
+    # For Mali 400
+    chown system system /sys/mali400_utility/utility
+    chmod 0664 /sys/mali400_utility/utility
+    
+    # Broadcom GPS init
+    write /sys/class/gpio/export 316             # GPS reset
+    write /sys/class/gpio/export 315             # GPS standby
+    write /sys/class/gpio/gpio316/direction out
+    write /sys/class/gpio/gpio315/direction out
+    write /sys/class/gpio/gpio316/value 1
+    write /sys/class/gpio/gpio315/value 0
+    chmod 0664 /sys/class/gpio/gpio315/value
+    chown gps system /sys/class/gpio/gpio315/value
+
+    write /dev/ttyS3 123456		
+    chmod 0664 /dev/ttyS3
+    chown gps system /dev/ttyS3
+
+    # For GPS
+    mkdir /data/gps
+    chown gps system /data/gps
+    chmod 770 /data/gps
+
+    # Start virtual sdcard daemon and set serial number
+    start sdcard
+    start serial_number
+
+# Virtual sdcard daemon running as media_rw (1023)
+service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
+    class late_start
+    disabled
+
+# Set serial number
+service serial_number /system/bin/sh /system/bin/serial_number
+    disabled
+    oneshot
+
+service wpa_supplicant /system/bin/wpa_supplicant \
+    -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+    #-Dnl80211 -iwlan0 -puse_p2p_group_interface=1 -e/data/misc/wifi/entropy.bin
+    #   we will start as root and wpa_supplicant will switch to user wifi
+    #   after setting up the capabilities required for WEXT
+    #   user wifi
+    #   group wifi inet keystore
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
+# Add for wifi direct (gwl)
+service p2p_supplicant /system/bin/wpa_supplicant \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -N \
+    -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -puse_p2p_group_interface=1
+    #   we will start as root and wpa_supplicant will switch to user wifi
+    #   after setting up the capabilities required for WEXT
+    #   user wifi
+    #   group wifi inet keystore
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_wlan0 system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_p2p /system/bin/dhcpcd -aABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_p2p system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+			
+service iprenew_eth0 system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service battery_charger /charger
+    class charger
+
+# Start GPS service
+service gps-daemon /system/bin/glgps -c /system/etc/gps/gpsconfig.xml
+    class main
+    socket gps seqpacket 0660 gps system
+    socket rilgps.socket seqpacket 0660 gps system
+    user gps
+    group system inet sdcard_rw
