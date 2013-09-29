@@ -63,6 +63,11 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/config/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
     device/bq/maxwell2lite/config/vold.fstab:system/etc/vold.fstab
 
+# USB modeswitch
+PRODUCT_COPY_FILES += \
+    device/bq/maxwell2lite/config/usb_modeswitch.sh:system/bin/usb_modeswitch.sh \
+    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/config/usb_modeswitch.d,system/etc/usb_modeswitch.d)
+
 # Ramdisk files
 PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/ramdisk/fstab.rk30sdk:root/fstab.rk30sdk \
