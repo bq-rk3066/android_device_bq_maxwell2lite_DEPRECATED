@@ -14,6 +14,9 @@
 
 PRODUCT_CHARACTERISTICS := tablet
 
+PRODUCT_PROPERTY_OVERRIDES := \
+    ro.carrier=wifi-only
+
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
@@ -96,3 +99,6 @@ PRODUCT_PACKAGES += \
     librs_jni \
     libnetcmdiface \
     com.android.future.usb.accessory
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.carrier=wifi-only

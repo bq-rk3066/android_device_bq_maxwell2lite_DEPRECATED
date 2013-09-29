@@ -12,7 +12,6 @@
 ## <sysfs_path> - List of sysfs paths to source devices
 ######################
 
-
 # External SD card
 dev_mount sdcard1 /storage/sdcard1 auto /devices/platform/rk29_sdmmc.0/mmc_host/mmc0
 
