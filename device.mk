@@ -43,8 +43,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
@@ -57,8 +55,6 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/config/audio_policy.conf:system/etc/audio_policy.conf \
     device/bq/maxwell2lite/config/media_profiles.xml:system/etc/media_profiles.xml \
     device/bq/maxwell2lite/config/media_codecs.xml:system/etc/media_codecs.xml \
-    device/bq/maxwell2lite/config/gps.conf:system/etc/gps.conf \
-    device/bq/maxwell2lite/config/gpsconfig.xml:system/etc/gps/gpsconfig.xml \
     device/bq/maxwell2lite/config/egl.cfg:system/lib/egl/egl.cfg \
     device/bq/maxwell2lite/config/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
     device/bq/maxwell2lite/config/vold.fstab:system/etc/vold.fstab
