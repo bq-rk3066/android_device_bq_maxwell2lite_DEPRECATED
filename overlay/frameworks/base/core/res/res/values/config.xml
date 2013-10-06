@@ -98,9 +98,6 @@
     <!-- Disable lockscreen rotation by default -->
     <bool name="config_enableLockScreenRotation">true</bool>
 
-    <!-- The default iface on which to monitor data use -->
-    <string name="config_datause_iface" translatable="false">wlan0</string>
-
     <!-- Flag indicating whether the current device is "voice capable".
          If true, this means that the device supports circuit-switched
          (i.e. voice) phone calls over the telephony network, and is
@@ -127,9 +124,4 @@
     <!-- Whether a software navigation bar should be shown. NOTE: in the future this may be
          autodetected from the Configuration. -->
     <bool name="config_showNavigationBar">true</bool>
-
-    <!-- Max space (in MB) allocated to DownloadManager to store the downloaded
-         files if they are to be stored in DownloadManager's data dir,
-         which typically is /data/data/com.android.providers.downloads/files -->
-    <integer name="config_downloadDataDirSize">200</integer>
 </resources>
