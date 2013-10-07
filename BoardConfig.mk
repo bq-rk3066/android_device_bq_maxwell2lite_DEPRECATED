@@ -20,7 +20,7 @@
 -include vendor/bq/maxwell2lite/BoardConfigVendor.mk
 
 # CPU and Platform
-TARGET_BOARD_PLATFORM := rk30xx
+TARGET_BOARD_PLATFORM := rk30board
 TARGET_BOARD_PLATFORM_GPU := mali400
 
 TARGET_NO_BOOTLOADER := true
@@ -29,10 +29,12 @@ TARGET_NO_RADIOIMAGE := true
 TARGET_CPU_ABI  := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
+
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a9
 TARGET_ARCH_VARIANT_FPU := neon
+
 ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HAVE_ARMV7A := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
@@ -43,8 +45,8 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_SPECIFIC_HEADER_PATH += device/bq/maxwell2lite/include
 
 # Kernel & Bootloader
-TARGET_PREBUILT_KERNEL := device/bq/maxwell2lite/kernel
 TARGET_BOOTLOADER_BOARD_NAME := bq_Maxwell2lite
+TARGET_PREBUILT_KERNEL := device/bq/maxwell2lite/kernel
 BOARD_KERNEL_BASE := 0x60400000
 BOARD_KERNEL_PAGESIZE := 16384
 
@@ -90,6 +92,18 @@ NEED_WORKAROUND_CORTEX_A9_745320 := true
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 
+# Boot animation
+TARGET_SCREEN_HEIGHT := 1024
+TARGET_SCREEN_WIDTH := 600
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+
+# UMS
+BOARD_USE_USB_MASS_STORAGE_SWITCH := true
+BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
+BOARD_UMS_2ND_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun1/file
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
+
 # OTA
 TARGET_OTA_ASSERT_DEVICE := maxwell2lite,bq_Maxwell2Lite
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/bq/maxwell2lite/releasetools/rk_ota_from_target_files
@@ -111,12 +125,6 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TW_BRIGHTNESS_PATH := /sys/devices/platform/rk29_backlight/backlight/rk28_bl/brightness
 TW_MAX_BRIGHTNESS := 255
 DEVICE_RESOLUTION := 1024x600
-
-# UMS
-BOARD_USE_USB_MASS_STORAGE_SWITCH := true
-BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
-BOARD_UMS_2ND_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun1/file
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
 # Partition sizes
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
