@@ -49,7 +49,7 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/ramdisk/init.rc:root/init.rc \
     device/bq/maxwell2lite/ramdisk/init.rk30board.rc:root/init.rk30board.rc \
     device/bq/maxwell2lite/ramdisk/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
-    device/bq/maxwell2lite/ramdisk/ueventd.rk30board.rc:root/ueventd.rk30board.rc
+    device/bq/maxwell2lite/ramdisk/ueventd.rk30board.rc:root/ueventd.rk30board.rc \
     $(call find-copy-subdir-files,*,device/bq/maxwell2lite/ramdisk/images,root/res/images/charger)
 
 # Ramdisk blobs
