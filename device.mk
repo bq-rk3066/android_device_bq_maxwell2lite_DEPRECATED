@@ -1,4 +1,5 @@
-# Copyright (C) 2012 The Android Open Source Project
+#
+# Copyright (C) 2010 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,18 +12,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
 
 PRODUCT_CHARACTERISTICS := tablet
 
-PRODUCT_PROPERTY_OVERRIDES := \
-    ro.carrier=wifi-only
-	
 PRODUCT_TAGS += dalvik.gc.type-precise
-
-DEVICE_PACKAGE_OVERLAYS += device/bq/maxwell2lite/overlay
 
 PRODUCT_AAPT_CONFIG := normal mdpi hdpi
 PRODUCT_AAPT_PREF_CONFIG := mdpi
+
+DEVICE_PACKAGE_OVERLAYS += device/bq/maxwell2lite/overlay
 
 # Permissions files
 PRODUCT_COPY_FILES += \
@@ -36,16 +35,14 @@ PRODUCT_COPY_FILES += \
 
 # Config files
 PRODUCT_COPY_FILES += \
-    device/bq/maxwell2lite/config/serial_number:system/bin/serial_number \
-	device/bq/maxwell2lite/config/usb_modeswitch.sh:system/bin/usb_modeswitch.sh \
+    device/bq/maxwell2lite/config/serial_number.sh:system/bin/serial_number.sh \
     device/bq/maxwell2lite/config/audio_policy.conf:system/etc/audio_policy.conf \
     device/bq/maxwell2lite/config/media_profiles.xml:system/etc/media_profiles.xml \
     device/bq/maxwell2lite/config/media_codecs.xml:system/etc/media_codecs.xml \
     device/bq/maxwell2lite/config/egl.cfg:system/lib/egl/egl.cfg \
     device/bq/maxwell2lite/config/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
     device/bq/maxwell2plus/config/vold.fstab:system/etc/vold.fstab \
-    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/config/usb_modeswitch.d,system/etc/usb_modeswitch.d)
-
+	
 # Ramdisk files
 PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/ramdisk/fstab.rk30sdk:root/fstab.rk30sdk \
@@ -53,6 +50,7 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/ramdisk/init.rk30board.rc:root/init.rk30board.rc \
     device/bq/maxwell2lite/ramdisk/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
     device/bq/maxwell2lite/ramdisk/ueventd.rk30board.rc:root/ueventd.rk30board.rc
+    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/ramdisk/images,root/res/images/charger)
 
 # Ramdisk blobs
 PRODUCT_COPY_FILES += \
@@ -64,10 +62,6 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/ramdisk/charger:root/charger \
     device/bq/maxwell2lite/ramdisk/misc.img:root/misc.img \
     device/bq/maxwell2lite/ramdisk/rk30xxnand_ko.ko.3.0.8+:root/rk30xxnand_ko.ko.3.0.8+
-
-# Ramdisk charging images
-PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/ramdisk/images,root/res/images/charger)
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -82,9 +76,6 @@ PRODUCT_PACKAGES += \
     librs_jni \
     libnetcmdiface \
     com.android.future.usb.accessory
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.carrier=wifi-only
 	
 # Default config
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -94,6 +85,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.timezone=Europe/Amsterdam \
     ro.product.locale.language=es \
     ro.product.locale.region=ES
-
+	
 # Dalvik heap config
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)

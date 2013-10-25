@@ -1,34 +1,25 @@
-# for sensor
+# For Sensor
 /dev/mma8452_daemon       0666   system     system
 
-# for graphics
+# For Graphics
 /dev/ion                  0666   system     system
 /dev/rga                  0666   system     system
 /dev/rk29-ipp             0666   system     system   
 /dev/video0               0660   system     camera
 /dev/vpu_service          0666   system     system
 
-# for radio
-/dev/ttyUSB0              0660   radio      radio
-/dev/ttyUSB1              0660   radio      radio
-/dev/ttyUSB2              0660   radio      radio
-/dev/ttyUSB3              0660   radio      radio
-/dev/ttyUSB4              0660   radio      radio
-/dev/ttyUSB5              0660   radio      radio
-/dev/ttyUSB6              0660   radio      radio
-/dev/ttyUSB7              0660   radio      radio
-/dev/ttyUSB8              0660   radio      radio
-/dev/ttyUSB9              0660   radio      radio
+# For Radio
+/dev/ttyUSB*              0660   radio      radio
 
-# for mali
+# For Mali
 /dev/mali           	  0666   system     system
 /dev/ump           	      0666   system     system
 
-# for hdmi
+# For DRM
+/dev/rknand_sys_storage   0660   system     system 
+
+# For HDMI
 /sys/class/display/HDMI/enable   0664     root       system
 /sys/class/display/HDMI/mode     0664     root       system
 /sys/class/display/HDMI/scale    0664     root       system
 /sys/class/graphics/fb0/blank    0664     root       system
-
-# for drm
-/dev/rknand_sys_storage   0660   system     system 
