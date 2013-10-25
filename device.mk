@@ -41,7 +41,7 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/config/media_codecs.xml:system/etc/media_codecs.xml \
     device/bq/maxwell2lite/config/egl.cfg:system/lib/egl/egl.cfg \
     device/bq/maxwell2lite/config/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
-    device/bq/maxwell2plus/config/vold.fstab:system/etc/vold.fstab \
+    device/bq/maxwell2lite/config/vold.fstab:system/etc/vold.fstab \
 	
 # Ramdisk files
 PRODUCT_COPY_FILES += \
