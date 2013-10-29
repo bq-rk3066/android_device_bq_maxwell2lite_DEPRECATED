@@ -4,7 +4,6 @@
 
 # Graphics
 ro.opengles.version=131072
-ro.sf.hwrotation=270
 persist.sys.strictmode.visual=false
 testing.mediascanner.skiplist=/storage/sdcard0/Android/
 ro.sf.lcd_density=160
