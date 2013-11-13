@@ -393,6 +393,15 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
 
+    # Mirroring device enable
+    chown media media /dev/mirroring
+    chmod 664 /dev/mirroring
+
+    # HDMI
+    chown root system /sys/class/display/HDMI/enable
+    chown root system /sys/class/display/HDMI/mode
+    chown root system /sys/class/display/HDMI/scale
+
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 4096,87380,704512,4096,16384,110208

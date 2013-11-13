@@ -56,9 +56,9 @@ on boot
     # Backlight
     chown system system /sys/class/backlight/rk28_bl/brightness
 
-    # Mirroring device enable
-    chown media media /dev/mirroring
-    chmod 664 /dev/mirroring
+    # HDMI timeout
+    chown root system /sys/class/graphics/fb0/blank
+    chmod 0664 /sys/class/graphics/fb0/blank
 
     # Bluetooth
     chmod 0660 /dev/ttyS0

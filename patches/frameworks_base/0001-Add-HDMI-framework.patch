@@ -1,0 +1,29 @@
+From 51565091b5175895a330b7ce27ffd3f384ecc5e7 Mon Sep 17 00:00:00 2001
+From: fefifofum <fefifofum@email.com>
+Date: Mon, 11 Nov 2013 17:48:36 +0100
+Subject: Add HDMI framework
+
+---
+ core/java/android/provider/Settings.java | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/core/java/android/provider/Settings.java b/core/java/android/provider/Settings.java
+index 7925d31..016ef8a 100644
+--- a/core/java/android/provider/Settings.java
++++ b/core/java/android/provider/Settings.java
+@@ -1595,6 +1595,12 @@ public final class Settings {
+         @Deprecated
+         public static final String WIFI_STATIC_DNS2 = "wifi_static_dns2";
+ 
++        /**
++         * The hdmi lcd timeout seconds.
++         * @hide
++         */
++        public static final String HDMI_LCD_TIMEOUT = "hdmi_lcd_timeout";
++
+         /**
+          * Allows automatic retrieval of mms contents
+          * <p>Type: INT</p>
+-- 
+1.8.1.2
+
