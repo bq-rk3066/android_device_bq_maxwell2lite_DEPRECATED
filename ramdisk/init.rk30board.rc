@@ -32,7 +32,7 @@ on init
 
 on fs
     insmod /rk30xxnand_ko.ko
-    mount_all /fstab.rk30sdk
+    mount_all /fstab.rk30board
 
 on post-fs-data
     mkdir /data/misc/wifi 0770 wifi wifi

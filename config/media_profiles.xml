@@ -159,20 +159,21 @@
 
 -->
         <!--  If your sensor driver don't support 720p stream, Please turn off this element -->
-<!--
+        <!--[A] add suport video quality xmlsq 20130821 -->
         <EncoderProfile quality="720p" fileFormat="mp4" duration="30">
             <Video codec="h264"
                    bitRate="3000000"
                    width="1280"
                    height="720"
-                   frameRate="8" />
+                   frameRate="15" />
 
             <Audio codec="aac"
                    bitRate="61000"
                    sampleRate="44100"
                    channels="1" />
         </EncoderProfile>
--->        
+        <!--END xmlsq 20130821 bug-id:11698-->
+
         <EncoderProfile quality="timelapseqcif" fileFormat="mp4" duration="30">
             <Video codec="h264"
                    bitRate="192000"
@@ -241,21 +242,20 @@
                    channels="1" />
         </EncoderProfile>
 -->
+        <!--[M] Turn on this element to support 720 time lapse, xmlisj 20130903-->
         <!--  If your sensor driver don't support 720p stream, Please turn off this element -->
-<!--
         <EncoderProfile quality="timelapse720p" fileFormat="mp4" duration="30">
             <Video codec="h264"
                    bitRate="3000000"
                    width="1280"
                    height="720"
-                   frameRate="8" />
-
+                   frameRate="15" />
             <Audio codec="aac"
                    bitRate="61000"
                    sampleRate="44100"
                    channels="1" />
         </EncoderProfile>
--->
+        <!--End ,xmlisj 20130903 BUG-ID:12291-->
         <ImageEncoding quality="90" />
         <ImageEncoding quality="80" />
         <ImageEncoding quality="70" />
@@ -453,26 +453,26 @@
         minBitRate="64000" maxBitRate="3000000"
         minFrameWidth="176" maxFrameWidth="1920"
         minFrameHeight="144" maxFrameHeight="1080"
-        minFrameRate="10" maxFrameRate="30" />
+        minFrameRate="1" maxFrameRate="30" />
 
     <VideoEncoderCap name="h263" enabled="true"
         minBitRate="64000" maxBitRate="1000000"
         minFrameWidth="176" maxFrameWidth="800"
         minFrameHeight="144" maxFrameHeight="480"
-        minFrameRate="10" maxFrameRate="24" />
+        minFrameRate="1" maxFrameRate="24" />
 
     <VideoEncoderCap name="m4v" enabled="true"
         minBitRate="64000" maxBitRate="2000000"
         minFrameWidth="176" maxFrameWidth="800"
         minFrameHeight="144" maxFrameHeight="480"
-        minFrameRate="10" maxFrameRate="24" />
+        minFrameRate="1" maxFrameRate="24" />
 
     <AudioEncoderCap name="aac" enabled="true"
         minBitRate="8192" maxBitRate="96000"
         minSampleRate="8000" maxSampleRate="44100"
         minChannels="1" maxChannels="1" />
 
-    <AudioEncoderCap name="amrwb" enabled="false"
+    <AudioEncoderCap name="amrwb" enabled="true"
         minBitRate="6600" maxBitRate="23050"
         minSampleRate="16000" maxSampleRate="16000"
         minChannels="1" maxChannels="1" />
