@@ -18,5 +18,6 @@
 #define _BDROID_BUILDCFG_H
 
 #define BTM_DEF_LOCAL_NAME   "bq Maxwell 2 Lite"
+#define HCILP_INCLUDED
 
 #endif

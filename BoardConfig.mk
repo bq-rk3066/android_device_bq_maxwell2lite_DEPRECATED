@@ -67,20 +67,18 @@ BOARD_USES_HDMI := true
 TARGET_HAVE_HDMI_OUT := true
 
 # Wi-Fi
-BOARD_WLAN_DEVICE := bcmdhd
-BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+BOARD_WPA_SUPPLICANT_DRIVER := WEXT
 WPA_SUPPLICANT_VERSION := VER_0_8_X
-BOARD_HOSTAPD_DRIVER := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_bcmdhd
-BOARD_LEGACY_NL80211_STA_EVENTS := true
-
-WIFI_DRIVER_MODULE_NAME := "wlan"
-WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/rkwifi.ko"
-WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/wlan/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_STA := "/etc/firmware/fw_RK903b2.bin"
-WIFI_DRIVER_FW_PATH_AP := "/etc/firmware/fw_RK903b2_apsta.bin"
-WIFI_DRIVER_FW_PATH_P2P := "/etc/firmware/fw_RK903b2_p2p.bin"
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
+BOARD_HOSTAPD_DRIVER        := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_bcmdhd
+BOARD_WLAN_DEVICE           := bcmdhd
+WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/wlan/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_STA     := "/etc/firmware/fw_RK903b2.bin"
+WIFI_DRIVER_FW_PATH_P2P     := "/etc/firmware/fw_RK903b2_p2p.bin"
+WIFI_DRIVER_FW_PATH_AP      := "/etc/firmware/fw_RK903b2_apsta.bin"
+WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/rkwifi.ko"
+WIFI_DRIVER_MODULE_NAME     := "wlan"
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -102,10 +100,9 @@ TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # UMS
-BOARD_USE_USB_MASS_STORAGE_SWITCH := true
-BOARD_UMS_LUNFILE := /sys/class/android_usb/f_mass_storage/lun/file
-BOARD_UMS_2ND_LUNFILE := /sys/class/android_usb/f_mass_storage/lun1/file
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/f_mass_storage/lun/file
+BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
+BOARD_UMS_2ND_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun1/file
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
 # OTA
 TARGET_OTA_ASSERT_DEVICE := maxwell2lite,bq_Maxwell2Lite

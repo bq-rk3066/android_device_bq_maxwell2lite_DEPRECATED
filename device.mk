@@ -49,8 +49,7 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/ramdisk/init.rc:root/init.rc \
     device/bq/maxwell2lite/ramdisk/init.rk30board.rc:root/init.rk30board.rc \
     device/bq/maxwell2lite/ramdisk/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
-    device/bq/maxwell2lite/ramdisk/ueventd.rk30board.rc:root/ueventd.rk30board.rc \
-    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/ramdisk/images,root/res/images/charger)
+    device/bq/maxwell2lite/ramdisk/ueventd.rk30board.rc:root/ueventd.rk30board.rc
 
 # Ramdisk blobs
 PRODUCT_COPY_FILES += \
@@ -59,9 +58,10 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/ramdisk/sbin/mke2fs:root/sbin/mke2fs \
     device/bq/maxwell2lite/ramdisk/sbin/resize2fs:root/sbin/resize2fs \
     device/bq/maxwell2lite/ramdisk/init:root/init \
-    device/bq/maxwell2lite/ramdisk/charger:root/charger \
     device/bq/maxwell2lite/ramdisk/misc.img:root/misc.img \
-    device/bq/maxwell2lite/ramdisk/rk30xxnand_ko.ko.3.0.8+:root/rk30xxnand_ko.ko.3.0.8+
+    device/bq/maxwell2lite/ramdisk/rk30xxnand_ko.ko.3.0.8+:root/rk30xxnand_ko.ko.3.0.8+ \
+    device/bq/maxwell2lite/ramdisk/charger:root/charger \
+    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/ramdisk/images,root/res/images/charger)
 
 # Audio
 PRODUCT_PACKAGES += \
