@@ -35,7 +35,7 @@ on fs
     insmod /rk30xxnand_ko.ko
     mount_all /fstab.rk30board
 	
-	insmod /system/lib/modules/ump.ko
+    insmod /system/lib/modules/ump.ko
     insmod /system/lib/modules/mali.ko mali_dvfs=50,100,133,160,200,266,400 mali_init_clock=50
     insmod /system/lib/modules/rk29-ipp.ko
     insmod /system/lib/modules/rk30_mirroring.ko
@@ -56,7 +56,7 @@ on boot
     chmod 0660 /sys/devices/system/cpu/cpu1/online
     insmod /system/lib/modules/vpu_service.ko
 	
-	# Mali 400
+    # Mali 400
     chown system system /sys/mali400_utility/utility
     chmod 0664 /sys/mali400_utility/utility
 
@@ -94,7 +94,7 @@ service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
 
 # Set serial number
 service serial_number /system/bin/sh /system/bin/serial_number.sh
-    class_main
+    class main
 
 service wpa_supplicant /system/bin/wpa_supplicant \
     -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
