@@ -4,6 +4,10 @@ $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 # Inherit device configuration
 $(call inherit-product, device/bq/maxwell2lite/maxwell2lite.mk)
 
+# Boot animation
+TARGET_SCREEN_HEIGHT := 600
+TARGET_SCREEN_WIDTH := 1024
+
 # Device identifier
 PRODUCT_DEVICE := maxwell2lite
 PRODUCT_NAME := cm_maxwell2lite

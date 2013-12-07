@@ -20,5 +20,5 @@ add_lunch_combo cm_maxwell2lite-eng
 sh device/bq/maxwell2lite/patches/apply.sh
 
 # Copy HDMI images.
-cp device/bq/maxwell2lite/hdmi-images/ic_settings_hdmi.png packages/apps/Settings/res/drawable-mdpi/ic_settings_hdmi.png
-cp device/bq/maxwell2lite/hdmi-images/ic_settings_screen_scale.png packages/apps/Settings/res/drawable-mdpi/ic_settings_screen_scale.png
+cp device/bq/maxwell2lite/hdmi-icons/ic_settings_hdmi.png packages/apps/Settings/res/drawable-mdpi/ic_settings_hdmi.png
+cp device/bq/maxwell2lite/hdmi-icons/ic_settings_screen_scale.png packages/apps/Settings/res/drawable-mdpi/ic_settings_screen_scale.png
