@@ -43,14 +43,14 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/config/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
     device/bq/maxwell2lite/config/vold.fstab:system/etc/vold.fstab \
 	
-# rootdir files
+# Ramdisk files
 PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/rootdir/fstab.rk30board:root/fstab.rk30board \
     device/bq/maxwell2lite/rootdir/init.rk30board.rc:root/init.rk30board.rc \
     device/bq/maxwell2lite/rootdir/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
     device/bq/maxwell2lite/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc
 
-# rootdir blobs
+# Ramdisk blobs
 PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/rootdir/sbin/e2fsck:root/sbin/e2fsck \
     device/bq/maxwell2lite/rootdir/sbin/mkdosfs:root/sbin/mkdosfs \
