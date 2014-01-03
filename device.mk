@@ -71,6 +71,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs \
+    charger \
     librs_jni \
     libnetcmdiface \
     com.android.future.usb.accessory
