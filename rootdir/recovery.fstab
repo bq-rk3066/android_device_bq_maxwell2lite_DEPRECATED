@@ -1,0 +1,10 @@
+# mount point      fstype         device                               [device2]
+/external_sd       vfat           /dev/block/mmcblk0p1                 /dev/block/mmcblk0        lun=/sys/class/android_usb/android0/f_mass_storage/lun1/file
+/sdcard            datamedia      /dev/null
+/system            ext4           /dev/block/mtd/by-name/system
+/cache             ext4           /dev/block/mtd/by-name/cache
+/data              ext4           /dev/block/mtd/by-name/userdata
+/boot              mtd            boot
+/kernel            mtd            kernel
+/recovery          mtd            recovery
+/misc              mtd            misc

@@ -1,0 +1,236 @@
+From ed39a556dc5be1f8975fafcb72241812bdef9e5b Mon Sep 17 00:00:00 2001
+From: fefifofum <fefifofum@email.com>
+Date: Wed, 1 Jan 2014 16:20:20 +0100
+Subject: [PATCH] HDMI settings
+
+---
+ AndroidManifest.xml                    |  6 ++++++
+ proguard.flags                         |  3 +++
+ res/values-es/arrays.xml               |  6 ++++++
+ res/values-es/strings.xml              |  4 ++++
+ res/values-pt/arrays.xml               |  8 +++++++-
+ res/values-pt/strings.xml              |  4 ++++
+ res/values/arrays.xml                  | 33 +++++++++++++++++++++++++++++++++
+ res/values/strings.xml                 |  7 +++++++
+ res/xml/settings_headers.xml           |  7 +++++++
+ src/com/android/settings/Settings.java | 16 ++++++++++++++++
+ 10 files changed, 93 insertions(+), 1 deletion(-)
+
+diff --git a/AndroidManifest.xml b/AndroidManifest.xml
+index 46c0142..af2df08 100644
+--- a/AndroidManifest.xml
++++ b/AndroidManifest.xml
+@@ -1724,6 +1724,12 @@
+             </intent-filter>
+             <meta-data android:name="android.appwidget.provider" android:resource="@xml/appwidget_info" />
+         </receiver>
++
++        <receiver android:name="HdmiReceiver">
++            <intent-filter>
++                <action android:name="android.intent.action.HDMI_AUDIO_PLUG"/>
++            </intent-filter>
++        </receiver>
+ 
+         <receiver android:name=".bluetooth.BluetoothDiscoverableTimeoutReceiver">
+             <intent-filter>
+diff --git a/proguard.flags b/proguard.flags
+index d0862da..b9776eb 100644
+--- a/proguard.flags
++++ b/proguard.flags
+@@ -11,6 +11,9 @@
+ -keep class com.android.settings.MasterClearConfirm
+ -keep class com.android.settings.accounts.*
+ -keep class com.android.settings.fuelgauge.*
++-keep class com.android.settings.HdmiControllerActivity
++-keep class com.android.settings.HdmiReceiver
++-keep class com.android.settings.HdmiScreenZoomPreference
+ -keep class com.android.settings.users.*
+ -keep class com.koushikdutta.**
+ -keep class com.android.settings.cyanogenmod.superuser.**
+diff --git a/res/values-es/arrays.xml b/res/values-es/arrays.xml
+index 564f631..ed2c0a6 100644
+--- a/res/values-es/arrays.xml
++++ b/res/values-es/arrays.xml
+@@ -295,4 +295,10 @@
+     <item msgid="5077768429488260031">"No permitir nunca"</item>
+     <item msgid="1417929597727989746">"Permitir siempre"</item>
+   </string-array>
++  <string-array name="hdmi_lcd_timeout_entries">
++    <item>10s</item>
++    <item>20s</item>
++    <item>30s</item>
++    <item>No apagar pantalla</item>
++  </string-array>
+ </resources>
+diff --git a/res/values-es/strings.xml b/res/values-es/strings.xml
+index 3b5ef23..f2b2cdd 100644
+--- a/res/values-es/strings.xml
++++ b/res/values-es/strings.xml
+@@ -1830,4 +1830,8 @@
+     <string name="user_picture_title" msgid="7297782792000291692">"ID de foto"</string>
+     <string name="cell_broadcast_settings" msgid="8415582011920085222">"Difusiones móviles"</string>
+     <string name="cell_broadcast_settings_summary" msgid="3301339398950905913">"Selecciona los tipos de alertas de emergencia que quieres ver."</string>
++    <string name="hdmi_title">Activar HDMI</string>
++    <string name="hdmi_resolution_title">Resolución HDMI</string>
++    <string name="hdmi_screen_zoom">Zoom de pantalla</string>
++    <string name="hdmi_lcd_timeout">Tiempo de espera</string>
+ </resources>
+diff --git a/res/values-pt/arrays.xml b/res/values-pt/arrays.xml
+index 9cd1c50..bf3aa10 100644
+--- a/res/values-pt/arrays.xml
++++ b/res/values-pt/arrays.xml
+@@ -295,4 +295,10 @@
+     <item msgid="5077768429488260031">"Nunca permitir"</item>
+     <item msgid="1417929597727989746">"Sempre permitir"</item>
+   </string-array>
+-</resources>
+\ No newline at end of file
++  <string-array name="hdmi_lcd_timeout_entries">
++    <item>10s</item>
++    <item>20s</item>
++    <item>30s</item>
++    <item>Nunca apagar</item>
++  </string-array>
++</resources>
+diff --git a/res/values-pt/strings.xml b/res/values-pt/strings.xml
+index 3d29e7f..187e86b 100644
+--- a/res/values-pt/strings.xml
++++ b/res/values-pt/strings.xml
+@@ -1830,4 +1830,8 @@
+     <string name="user_picture_title" msgid="7297782792000291692">"ID de foto"</string>
+     <string name="cell_broadcast_settings" msgid="8415582011920085222">"Transmissões por celular"</string>
+     <string name="cell_broadcast_settings_summary" msgid="3301339398950905913">"Selecione os tipos de alertas de emergência a exibir."</string>
++    <string name="hdmi_title">Activar HDMI</string>
++    <string name="hdmi_resolution_title">Resolução HDMI</string>
++    <string name="hdmi_screen_zoom">Zoom do ecrã</string>
++    <string name="hdmi_lcd_timeout">Suspender ecrã</string>
+ </resources>
+diff --git a/res/values/arrays.xml b/res/values/arrays.xml
+index 14e1fc8..396c5cc 100644
+--- a/res/values/arrays.xml
++++ b/res/values/arrays.xml
+@@ -745,6 +745,39 @@
+         <item>Unsuccessful</item>
+     </string-array>
+ 
++    <!--HDMI-->
++    <string-array name="hdmi_resolution_entries">
++        <item>1920x1080p_50Hz </item>
++        <item>1920x1080p_60Hz</item>
++        <item>1280x720p_50Hz</item>
++        <item>1280x720p_60Hz</item>
++        <item>720x576p_50Hz </item>
++        <item>720x480p_60Hz </item>
++    </string-array>
++
++    <string-array name="hdmi_resolution_values">
++        <item>1</item>
++        <item>2</item>
++        <item>3</item>
++        <item>4</item>
++        <item>5</item>
++        <item>6</item>
++    </string-array>
++
++    <string-array name="hdmi_lcd_timeout_entries">
++        <item>10s</item>
++        <item>20s</item>
++        <item>30s</item>
++        <item>never sleep</item>
++    </string-array>
++
++    <string-array name="hdmi_lcd_timeout_values">
++        <item>1</item>
++        <item>2</item>
++        <item>3</item>
++        <item>-1</item>
++    </string-array>
++
+     <!-- User content ratings for restricted users [CHAR LIMIT=30] -->
+     <string-array name="user_content_ratings_entries" translatable="false">
+         <item>Ascended being</item>
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index 912782d..8a25326 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -4378,4 +4378,11 @@
+     <string name="cell_broadcast_settings">Cell broadcasts</string>
+     <!-- Cell Broadcast settings description [CHAR LIMIT=100] -->
+     <string name="cell_broadcast_settings_summary">Select the types of emergency alerts to display.</string>
++
++    <!-- HDMI -->
++    <string name="hdmi_title">Turn on HDMI</string>
++    <string name="hdmi_resolution_title">HDMI Resolution</string>
++    <string name="hdmi_screen_zoom">Screen Zoom</string>
++    <string name="hdmi_lcd_timeout">Screen Timeout</string>
++    <string name="hdmi_settings">HDMI</string>
+ </resources>
+diff --git a/res/xml/settings_headers.xml b/res/xml/settings_headers.xml
+index bdc394a..20ddd84 100644
+--- a/res/xml/settings_headers.xml
++++ b/res/xml/settings_headers.xml
+@@ -111,6 +111,13 @@
+         android:fragment="com.android.settings.DisplaySettings"
+         android:title="@string/display_settings" />
+ 
++    <!-- HDMI -->
++    <header
++        android:id="@+id/hdmi_settings"
++        android:icon="@drawable/ic_settings_hdmi"
++        android:fragment="com.android.settings.HdmiControllerActivity"
++        android:title="@string/hdmi_settings" />
++
+     <!-- Storage -->
+     <header
+         android:id="@+id/storage_settings"
+diff --git a/src/com/android/settings/Settings.java b/src/com/android/settings/Settings.java
+index b3f50f8..9971e1e 100644
+--- a/src/com/android/settings/Settings.java
++++ b/src/com/android/settings/Settings.java
+@@ -48,6 +48,7 @@ import android.os.RemoteException;
+ import android.os.ServiceManager;
+ import android.os.UserHandle;
+ import android.os.UserManager;
++import android.os.SystemProperties;
+ import android.preference.Preference;
+ import android.preference.PreferenceActivity;
+ import android.preference.PreferenceFragment;
+@@ -69,6 +70,7 @@ import java.util.Collections;
+ import java.util.Comparator;
+ import java.util.HashMap;
+ import java.util.List;
++import java.io.File;
+ 
+ /**
+  * Top-level settings activity to handle single pane and double pane UI layout.
+@@ -432,6 +434,16 @@ public class Settings extends PreferenceActivity
+         updateHeaderList(headers);
+     }
+ 
++    private boolean hasHdmiFeature(){
++       File file30=new File("/sys/class/display/HDMI/enable");
++       File file29=new File("/sys/class/hdmi/hdmi-0/enable");
++       if(file30.exists()||file29.exists()){
++               return true;
++       }else{
++               return false;
++       }
++    }
++
+     private void updateHeaderList(List<Header> target) {
+         final boolean showDev = mDevelopmentPreferences.getBoolean(
+                 DevelopmentSettings.PREF_SHOW,
+@@ -493,6 +505,10 @@ public class Settings extends PreferenceActivity
+                         || Utils.isMonkeyRunning()) {
+                     target.remove(i);
+                 }
++            } else if(id == R.id.hdmi_settings){
++               if(!hasHdmiFeature()){
++                       target.remove(header);
++                }
+             } else if (id == R.id.development_settings
+                     || id == R.id.performance_settings) {
+                 if (!showDev) {
+-- 
+1.8.3.2
+

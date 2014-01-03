@@ -14,11 +14,11 @@
 # limitations under the License.
 #
 
-add_lunch_combo cm_maxwell2lite-eng
+add_lunch_combo cm_maxwell2lite-userdebug
 
 # Run device patches on the tree.
 sh device/bq/maxwell2lite/patches/apply.sh
 
-# Copy HDMI images.
-cp device/bq/maxwell2lite/hdmi-icons/ic_settings_hdmi.png packages/apps/Settings/res/drawable-mdpi/ic_settings_hdmi.png
-cp device/bq/maxwell2lite/hdmi-icons/ic_settings_screen_scale.png packages/apps/Settings/res/drawable-mdpi/ic_settings_screen_scale.png
+# HDMI files and patches.
+cp -r device/bq/maxwell2lite/hdmi/files/. packages/apps/Settings/
+sh device/bq/maxwell2lite/hdmi/patches/apply.sh

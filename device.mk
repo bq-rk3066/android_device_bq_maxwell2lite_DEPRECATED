@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2010 The Android Open Source Project
+# Copyright (C) 2012 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
 PRODUCT_CHARACTERISTICS := tablet
 
 PRODUCT_TAGS += dalvik.gc.type-precise
@@ -23,7 +25,7 @@ PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 DEVICE_PACKAGE_OVERLAYS += device/bq/maxwell2lite/overlay
 
-# Permissions files
+# Hardware-specific features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
@@ -43,27 +45,24 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/config/rk29-keypad.kl:/system/usr/keylayout/rk29-keypad.kl \
     device/bq/maxwell2lite/config/vold.fstab:system/etc/vold.fstab \
 	
-# Ramdisk files
+# Rootdir
 PRODUCT_COPY_FILES += \
+    device/bq/maxwell2lite/rootdir/init:root/init \
     device/bq/maxwell2lite/rootdir/fstab.rk30board:root/fstab.rk30board \
     device/bq/maxwell2lite/rootdir/init.rk30board.rc:root/init.rk30board.rc \
     device/bq/maxwell2lite/rootdir/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
-    device/bq/maxwell2lite/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc
+    device/bq/maxwell2lite/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc \
+    device/bq/maxwell2lite/rootdir/rk30xxnand_ko.ko.3.0.8+:root/rk30xxnand_ko.ko.3.0.8+
 
-# Ramdisk blobs
-PRODUCT_COPY_FILES += \
-    device/bq/maxwell2lite/rootdir/sbin/e2fsck:root/sbin/e2fsck \
-    device/bq/maxwell2lite/rootdir/sbin/mkdosfs:root/sbin/mkdosfs \
-    device/bq/maxwell2lite/rootdir/sbin/mke2fs:root/sbin/mke2fs \
-    device/bq/maxwell2lite/rootdir/sbin/resize2fs:root/sbin/resize2fs \
-    device/bq/maxwell2lite/rootdir/init:root/init \
-    device/bq/maxwell2lite/rootdir/misc.img:root/misc.img \
-    device/bq/maxwell2lite/rootdir/rk30xxnand_ko.ko.3.0.8+:root/rk30xxnand_ko.ko.3.0.8+ \
-    device/bq/maxwell2lite/rootdir/charger:root/charger \
-    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/rootdir/images,root/res/images/charger)
+# HAL
+PRODUCT_PACKAGES += \
+    lights.rk30board \
+    power.rk30xx
 
 # Audio
 PRODUCT_PACKAGES += \
+    audio.primary.rk30board \
+    audio_policy.rk30board \
     audio.a2dp.default \
     audio.r_submix.default \
     audio.usb.default
@@ -78,8 +77,15 @@ PRODUCT_PACKAGES += \
 	
 # Default config
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opengles.version=131072 \
+    ro.sf.lcd_density=160 \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=30 \
+    testing.mediascanner.skiplist=/storage/sdcard0/Android/ \
+    ro.config.facelock=enable_facelock \
+    persist.facelock.detect_cutoff=5000 \
+    persist.facelock.recog_cutoff=5000 \
+    persist.sys.strictmode.visual=false \
     persist.sys.usb.config=mtp \
     persist.sys.timezone=Europe/Amsterdam \
     ro.product.locale.language=es \

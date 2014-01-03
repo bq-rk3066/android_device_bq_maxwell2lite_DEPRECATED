@@ -12,6 +12,7 @@ Use the following local manifest:
     <?xml version="1.0" encoding="UTF-8"?>
     <manifest>
       <project name="bq-rk3066/android_device_bq_maxwell2lite" path="device/bq/maxwell2lite" revision="cm-10.1" />
+      <project name="bq-rk3066/android_kernel_bq_maxwell2" path="kernel/bq/maxwell2" revision="cm-10.1" />
       <project name="bq-rk3066/propietary_vendor_bq" path="vendor/bq" revision="cm-10.1" />
     </manifest>
 

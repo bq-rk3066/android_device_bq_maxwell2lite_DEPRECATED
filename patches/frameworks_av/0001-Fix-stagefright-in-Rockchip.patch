@@ -1,0 +1,59 @@
+From 4a6fc6cec9b71915c8f0b4365ec41ab6fc4228a0 Mon Sep 17 00:00:00 2001
+From: fefifofum <fefifofum@email.com>
+Date: Mon, 9 Dec 2013 03:50:04 +0100
+Subject: [PATCH] Fix stagefright in Rockchip
+
+---
+ media/libstagefright/avc_utils.cpp       | 8 +-------
+ media/libstagefright/include/avc_utils.h | 2 +-
+ 2 files changed, 2 insertions(+), 8 deletions(-)
+
+diff --git a/media/libstagefright/avc_utils.cpp b/media/libstagefright/avc_utils.cpp
+index 7bfa375..338f751 100644
+--- a/media/libstagefright/avc_utils.cpp
++++ b/media/libstagefright/avc_utils.cpp
+@@ -41,7 +41,7 @@ unsigned parseUE(ABitReader *br) {
+ 
+ // Determine video dimensions from the sequence parameterset.
+ void FindAVCDimensions(
+-        const sp<ABuffer> &seqParamSet, int32_t *width, int32_t *height, int32_t *isInterlaced) {
++        const sp<ABuffer> &seqParamSet, int32_t *width, int32_t *height) {
+     ABitReader br(seqParamSet->data() + 1, seqParamSet->size() - 1);
+ 
+     unsigned profile_idc = br.getBits(8);
+@@ -61,9 +61,6 @@ void FindAVCDimensions(
+         parseUE(&br);  // bit_depth_chroma_minus8
+         br.skipBits(1);  // qpprime_y_zero_transform_bypass_flag
+         bool seq_scaling_matrix_present = (br.getBits(1) != 0u);
+-        if (isInterlaced != NULL && seq_scaling_matrix_present) {
+-            return;
+-        }
+         CHECK_EQ(seq_scaling_matrix_present, false);  // seq_scaling_matrix_present_flag
+     }
+ 
+@@ -133,9 +130,6 @@ void FindAVCDimensions(
+         *height -=
+             (frame_crop_top_offset + frame_crop_bottom_offset) * cropUnitY;
+     }
+-    if (isInterlaced != NULL) {
+-        *isInterlaced = !frame_mbs_only_flag;
+-    }
+ 
+ }
+ 
+diff --git a/media/libstagefright/include/avc_utils.h b/media/libstagefright/include/avc_utils.h
+index d385bc1..e418822 100644
+--- a/media/libstagefright/include/avc_utils.h
++++ b/media/libstagefright/include/avc_utils.h
+@@ -37,7 +37,7 @@ enum {
+ };
+ 
+ void FindAVCDimensions(
+-        const sp<ABuffer> &seqParamSet, int32_t *width, int32_t *height, int32_t *isInterlaced = NULL);
++        const sp<ABuffer> &seqParamSet, int32_t *width, int32_t *height);
+ 
+ unsigned parseUE(ABitReader *br);
+ 
+-- 
+1.8.3.2
+

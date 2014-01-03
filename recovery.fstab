@@ -1,5 +1,0 @@
-# mount point		fstype		device			[device2]
-/system		        ext4		/dev/block/mtd/by-name/system flags=display="System";backup=1
-/cache		        ext4		/dev/block/mtd/by-name/cache flags=display="Cache";backup=1
-/data		        ext4		/dev/block/mtd/by-name/userdata	length=-16384 flags=display="Data";backup=1
-/external_sd	    vfat	    /dev/block/mmcblk0p1 /dev/block/mmcblk0 flags=display="Micro SDcard";storage;wipeingui;removable
