@@ -52,7 +52,9 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/rootdir/init.rk30board.rc:root/init.rk30board.rc \
     device/bq/maxwell2lite/rootdir/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
     device/bq/maxwell2lite/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc \
-    device/bq/maxwell2lite/rootdir/rk30xxnand_ko.ko.3.0.8+:root/rk30xxnand_ko.ko.3.0.8+
+    device/bq/maxwell2lite/rootdir/rk30xxnand_ko.ko.3.0.8+:root/rk30xxnand_ko.ko.3.0.8+ \
+    device/bq/maxwell2lite/rootdir/charger:root/charger \
+    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/rootdir/images,root/res/images/charger)
 
 # HAL
 PRODUCT_PACKAGES += \
@@ -71,7 +73,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs \
-    charger \
     librs_jni \
     libnetcmdiface \
     com.android.future.usb.accessory
