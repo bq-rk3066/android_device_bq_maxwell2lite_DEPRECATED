@@ -1,23 +1,18 @@
+#
 # Copyright (C) 2012 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 #
-# This file lists the product definition files that define
-# configurations which are actually buildable (e.g. through lunch)
-#
-
-USE_CAMERA_STUB := true
 
 -include vendor/bq/maxwell2lite/BoardConfigVendor.mk
 
@@ -28,26 +23,15 @@ TARGET_NO_RADIOIMAGE := true
 
 # Platform
 TARGET_BOARD_PLATFORM := rk30board
-TARGET_BOARD_PLATFORM_GPU := mali400
-
 TARGET_CPU_ABI  := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
-
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_ARCH_VARIANT_CPU := cortex-a9
-TARGET_ARCH_VARIANT_FPU := neon
-
-ARCH_ARM_HAVE_NEON := true
-ARCH_ARM_HAVE_ARMV7A := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-
-# Avoid the generation of ldrcc instructions
-NEED_WORKAROUND_CORTEX_A9_745320 := true
 
 # Graphics
 BOARD_EGL_CFG := device/bq/maxwell2lite/config/egl.cfg
@@ -55,7 +39,6 @@ USE_OPENGL_RENDERER := true
 
 # Web Rendering
 ENABLE_WEBGL := true
-TARGET_FORCE_CPU_UPLOAD := true
 
 # Wi-Fi
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
@@ -98,11 +81,12 @@ TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 BOARD_USES_UNCOMPRESSED_BOOT := true
 BOARD_KERNEL_BASE := 0x60400000
 BOARD_KERNEL_PAGESIZE := 16384
+
 BOARD_RK_RAMDISK_ADDRESS := 0x62000000
 BOARD_CUSTOM_BOOTIMG_MK := device/bq/maxwell2lite/mkbootimg.mk
+TARGET_OTA_ASSERT_DEVICE := maxwell2lite,bq_Maxwell2Lite
 
 # Recovery
-TARGET_OTA_ASSERT_DEVICE := maxwell2lite,bq_Maxwell2Lite
 TARGET_RECOVERY_INITRC := device/bq/maxwell2lite/rootdir/recovery.rc
 TARGET_RECOVERY_FSTAB := device/bq/maxwell2lite/rootdir/recovery.fstab
 TARGET_RECOVERY_PRE_COMMAND := "echo -n boot-recovery | busybox dd of=/dev/block/mtdblock0 count=1 conv=sync; sync"
