@@ -18,7 +18,7 @@
 # device-specific aspects (drivers) with a device-agnostic
 # product configuration (apps). Except for a few implementation
 # details, it only fundamentally contains two inherit-product
-# lines, full and toro, hence its name.
+# lines, full and maxwell2lite, hence its name.
 #
 
 # Inherit from the common open source product configuration

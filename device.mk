@@ -54,7 +54,12 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc \
     device/bq/maxwell2lite/rootdir/rk30xxnand_ko.ko.3.0.8+:root/rk30xxnand_ko.ko.3.0.8+ \
     device/bq/maxwell2lite/rootdir/charger:root/charger \
-    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/rootdir/images,root/res/images/charger)
+    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/rootdir/images,root/res/images/charger) \
+    $(call find-copy-subdir-files,*,device/bq/maxwell2lite/rootdir/sbin,root/sbin)
+
+# Updater
+PRODUCT_COPY_FILES += \
+    device/bq/maxwell2lite/rkbootimg/updater:obj/EXECUTABLES/updater_intermediates/updater
 
 # HAL
 PRODUCT_PACKAGES += \
