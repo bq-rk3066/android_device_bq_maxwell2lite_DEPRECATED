@@ -5,7 +5,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#       http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -52,14 +52,14 @@ PRODUCT_COPY_FILES += \
     device/bq/maxwell2lite/rootdir/init.rk30board.rc:root/init.rk30board.rc \
     device/bq/maxwell2lite/rootdir/init.rk30board.usb.rc:root/init.rk30board.usb.rc \
     device/bq/maxwell2lite/rootdir/ueventd.rk30board.rc:root/ueventd.rk30board.rc \
-    device/bq/maxwell2lite/rootdir/rk30xxnand_ko.ko.3.0.8+:root/rk30xxnand_ko.ko.3.0.8+ \
+    device/bq/maxwell2lite/rootdir/rk30xxnand.ko.3.0.8+:root/rk30xxnand.ko.3.0.8+ \
     device/bq/maxwell2lite/rootdir/charger:root/charger \
     $(call find-copy-subdir-files,*,device/bq/maxwell2lite/rootdir/images,root/res/images/charger) \
     $(call find-copy-subdir-files,*,device/bq/maxwell2lite/rootdir/sbin,root/sbin)
 
 # Updater
 PRODUCT_COPY_FILES += \
-    device/bq/maxwell2lite/rkbootimg/updater:obj/EXECUTABLES/updater_intermediates/updater
+    device/bq/maxwell2lite/rktools/updater:obj/EXECUTABLES/updater_intermediates/updater
 
 # HAL
 PRODUCT_PACKAGES += \

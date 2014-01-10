@@ -1,9 +1,3 @@
-on init
-   # write /sys/class/android_usb/android0/iSerial ${ro.serialno}
-   # write /sys/class/android_usb/android0/f_rndis/manufacturer RockChip
-   # write /sys/class/android_usb/android0/f_rndis/vendorID 2207
-   # write /sys/class/android_usb/android0/f_rndis/wceis 1
-
 on boot
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
     write /sys/class/android_usb/android0/f_rndis/manufacturer RockChip

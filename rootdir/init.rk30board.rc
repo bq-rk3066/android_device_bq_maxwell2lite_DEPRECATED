@@ -31,8 +31,7 @@ on init
     symlink /storage/usbdisk0 /usb_storage
 
 on fs
-    # Mount MTD partitions
-    insmod /rk30xxnand_ko.ko
+    insmod /rk30xxnand.ko
     mount_all /fstab.rk30board
 	
     insmod /system/lib/modules/ump.ko
@@ -41,14 +40,13 @@ on fs
     insmod /system/lib/modules/rk30_mirroring.ko
 
 on post-fs-data
+    mkdir /data/media 0770 media_rw media_rw
+
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
 
-    mkdir /data/media 0770 media_rw media_rw
-
-    # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
 on boot
@@ -92,7 +90,7 @@ on boot
 service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
     class main
 
-# Set serial number
+# Set device serial number
 service serial_number /system/bin/sh /system/bin/serial_number.sh
     class main
 
@@ -108,7 +106,6 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     disabled
     oneshot
 
-# Add for wifi direct (gwl)
 service p2p_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -N \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -puse_p2p_group_interface=1

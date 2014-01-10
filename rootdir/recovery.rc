@@ -1,6 +1,6 @@
 on early-init
     start ueventd
-    insmod /rk30xxnand_ko.ko
+    insmod /rk30xxnand.ko
 
 on init
     export PATH /sbin
